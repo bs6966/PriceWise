@@ -4,7 +4,7 @@ import ProductCard from '@/components/ProductCard'
 import { getProductById, getSimilarProducts } from '@/lib/actions'
 import { formatNumber } from '@/lib/utils'
 import { Product } from '@/types'
-import { redirect } from 'next/dist/server/api-utils'
+import { redirect } from "next/navigation";
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -16,6 +16,7 @@ type Props = {
 const page = async ({params: {id}}: Props) => {
   const product : Product = await getProductById(id);
   
+  if(!product) redirect('/')
 
   const similarProducts = await getSimilarProducts(id)
   return (
